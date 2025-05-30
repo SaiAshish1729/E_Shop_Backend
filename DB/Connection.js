@@ -1,0 +1,12 @@
+const mongoose = require("mongoose");
+
+const Connection = async () => {
+    const URL = "mongodb://127.0.0.1:27017/Fake_Store"
+    try {
+        await mongoose.connect(URL)
+        console.log("Database Connected Successfully!");
+    } catch (error) {
+        console.log("Error whine Connection", error)
+    }
+}
+module.exports = Connection
