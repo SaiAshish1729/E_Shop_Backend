@@ -5,7 +5,7 @@ const Connection = require('./DB/Connection');
 const cookieParser = require('cookie-parser');
 const port = process.env.APP_PORT || 5000;
 const userRoute = require("./Routes/userRoutes.js")
-// const orderRoute = require("./Routes/orderRoutes.js")
+const categoryRoute = require("./Routes/categoryRoute.js")
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -23,9 +23,9 @@ app.get("/", (req, res) => {
 
 // Routes
 app.use("/api/v1/user", userRoute);
-// app.use("/api/v1/order", orderRoute);
+app.use("/api/v1/category", categoryRoute);
 
-https://www.youtube.com/watch?v=CBM4x3X-Jrs&list=PLSDeUiTMfxW5ymcWAXlbnJ3KLoN34Li_C&index=4
+https://www.youtube.com/watch?v=KXzc-fTFIRE&list=PLSDeUiTMfxW5ymcWAXlbnJ3KLoN34Li_C&index=6
 
 app.listen(port, () => {
     console.log(`Server listning at port  http://localhost:${port}`)

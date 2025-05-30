@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require('mongoose');
 
 const categorySchema = new mongoose.Schema({
     name: {
@@ -8,7 +8,7 @@ const categorySchema = new mongoose.Schema({
         maxLength: 32,
         unique: true,
     },
-});
+}, { timestamps: true });
 
 const Category = mongoose.model("Category", categorySchema)
-export default Category
+module.exports = Category
