@@ -119,16 +119,39 @@ const updateUserProfile = async (req, res) => {
 
 const deleteUserById = async (req, res) => {
     try {
-        const admin = req.user;
-        console.log(admin);
-        return res.status(200).json({ success: true, message: "Uesr deleted successfully." })
+        const { user_id } = req.params;
+        if (!user_id) {
+            return res.status(404).json({ message: "user_id is required." })
+        }
+        const userFound = await User.findOne({ _id: user_id });
+        if (!userFound) {
+            return res.status(404).json({ message: "User not found." })
+        }
+        const removed = await User.deleteOne({ _id: user_id });
+        return res.status(200).json({ success: true, message: "Uesr deleted successfully.", data: removed })
     } catch (error) {
         console.log(error);
         res.status(500).send({ message: "Server error while deleting user.", error })
     }
 }
 
+const getUserById = async (req, res) => {
+    try {
+        const { user_id } = req.params;
+        if (!user_id) {
+            return res.status(404).json({ message: "user_id is required." })
+        }
+        const userFound = await User.findOne({ _id: user_id });
+        if (!userFound) {
+            return res.status(404).json({ message: "User not found." })
+        }
+        return res.status(200).json({ success: true, message: "Uesr details fetched successfully.", data: userFound })
 
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ message: "Server error while fetching user.", error })
+    }
+}
 module.exports = {
     createUser,
     userLogin,
@@ -137,4 +160,5 @@ module.exports = {
     loggedInUserProfile,
     updateUserProfile,
     deleteUserById,
+    getUserById,
 }
